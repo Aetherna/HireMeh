@@ -2,7 +2,7 @@ package dev.aetherna.hiremeh.common.mvi
 
 import io.reactivex.Observable
 
-interface MviView {
-    fun intents(): Observable<MviIntent>
-    fun render(state: MviViewState)
+interface MviView<I : MviIntent, S : MviViewState> {
+    fun intents(): Observable<I>
+    fun render(state: S)
 }

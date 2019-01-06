@@ -1,8 +1,8 @@
 package dev.aetherna.hiremeh.common.mvi
 
-import android.database.Observable
+import io.reactivex.Observable
 
-interface MviViewModel {
-    fun processIntents(intents: Observable<MviIntent>)
-    fun states(): Observable<MviViewState>
+interface MviViewModel<I : MviIntent, S : MviViewState> {
+    fun processIntents(intents: Observable<I>)
+    fun states(): Observable<S>
 }

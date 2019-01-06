@@ -5,7 +5,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import dev.aetherna.hiremeh.common.dagger.ViewModelKey
-import dev.aetherna.hiremeh.home.HomeViewModel
+import dev.aetherna.hiremeh.common.mvi.MviProcessor
+import dev.aetherna.hiremeh.common.mvi.MviReducer
+import dev.aetherna.hiremeh.home.*
+import dev.aetherna.hiremeh.home.view.HomeViewState
+import javax.inject.Singleton
 
 @Module(
     includes = [
@@ -14,11 +18,17 @@ import dev.aetherna.hiremeh.home.HomeViewModel
 )
 class HomeActivityModule {
 
-//    @Provides
-//    @Singleton
-//    fun provideInteractor(): Interactor {
-//        return MainInteractor()
-//    }
+    @Provides
+    @Singleton
+    fun provideHomeReducer(): MviReducer<HomeViewState, HomeResult> {
+        return HomeReducer()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHomeProcessor(): MviProcessor<HomeAction, HomeResult> {
+        return HomeProcessor()
+    }
 
     @Module
     class ProvideViewModel {
@@ -27,7 +37,9 @@ class HomeActivityModule {
         @Provides
         @IntoMap
         @ViewModelKey(HomeViewModel::class)
-//        fun provideMainViewModel(interactor: Interactor): ViewModel = MainViewModel(interactor)
-        fun provideHomeViewModel(): ViewModel = HomeViewModel()
+        fun provideHomeViewModel(
+            reducer: MviReducer<HomeViewState, HomeResult>,
+            processor: MviProcessor<HomeAction, HomeResult>
+        ): ViewModel = HomeViewModel(reducer, processor)
     }
 }

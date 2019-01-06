@@ -4,14 +4,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewModel" type="dev.aetherna.hiremeh.home.HomeState"/>
+        <variable name="viewModel" type="dev.aetherna.hiremeh.home.view.HomeViewState"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".home.HomeActivity">
+            tools:context=".home.view.HomeActivity">
 
         <TextView
                 android:layout_width="wrap_content"
