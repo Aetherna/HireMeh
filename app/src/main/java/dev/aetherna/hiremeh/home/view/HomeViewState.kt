@@ -1,13 +1,21 @@
 package dev.aetherna.hiremeh.home.view
 
+import dev.aetherna.hiremeh.common.domain.Post
 import dev.aetherna.hiremeh.common.mvi.MviViewState
 
 data class HomeViewState(
     val isLoading: Boolean = false,
-    val buttonName: String
+    val posts: List<Post> = emptyList(),
+    val error: String = ""
 ) : MviViewState {
 
     companion object {
-        val idle = HomeViewState(false, "Doing nuffin'")
+        val idle = HomeViewState(
+            false
+        )
+
+        val loading = HomeViewState(
+            true
+        )
     }
 }

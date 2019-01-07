@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import dagger.android.support.DaggerAppCompatActivity
 import dev.aetherna.hiremeh.R
 import dev.aetherna.hiremeh.common.mvi.MviView
@@ -18,6 +20,7 @@ class HomeActivity : DaggerAppCompatActivity(), MviView<HomeIntent, HomeViewStat
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
 
+    private val postsAdapter = PostsAdapter()
     private val disposables = CompositeDisposable()
 
     @Inject
@@ -28,10 +31,14 @@ class HomeActivity : DaggerAppCompatActivity(), MviView<HomeIntent, HomeViewStat
 
         viewModel = ViewModelProviders.of(this, vmFactory)[HomeViewModel::class.java]
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+
+        binding.homePosts.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = postsAdapter
+        }
     }
 
     override fun onStart() {
-        //todo on start or on resume
         super.onStart()
         viewModel
             .states()
@@ -43,11 +50,20 @@ class HomeActivity : DaggerAppCompatActivity(), MviView<HomeIntent, HomeViewStat
     }
 
     override fun intents(): Observable<HomeIntent> {
-        return Observable.just(Initialize)
+        return Observable.merge(
+            swipeToRefreshIntent(),
+            Observable.just(Initialize)
+        )
     }
 
     override fun render(state: HomeViewState) {
+        binding.homeRefresh.isRefreshing = state.isLoading
         binding.viewModel = state
+        postsAdapter.submitList(state.posts)
+    }
+
+    private fun swipeToRefreshIntent(): Observable<HomeIntent> {
+        return RxSwipeRefreshLayout.refreshes(binding.homeRefresh).map { LoadData }
     }
 
     override fun onDestroy() {

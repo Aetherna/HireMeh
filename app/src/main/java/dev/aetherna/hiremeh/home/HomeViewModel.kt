@@ -5,10 +5,7 @@ import dev.aetherna.hiremeh.common.mvi.MviProcessor
 import dev.aetherna.hiremeh.common.mvi.MviReducer
 import dev.aetherna.hiremeh.common.mvi.MviViewModel
 import dev.aetherna.hiremeh.common.util.notOfType
-import dev.aetherna.hiremeh.home.view.DoNothing
-import dev.aetherna.hiremeh.home.view.HomeIntent
-import dev.aetherna.hiremeh.home.view.HomeViewState
-import dev.aetherna.hiremeh.home.view.Initialize
+import dev.aetherna.hiremeh.home.view.*
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.PublishSubject
@@ -26,7 +23,7 @@ class HomeViewModel(
             intents.publish { shared ->
                 Observable.merge(
                     shared.ofType(Initialize::class.java).take(1),
-                    shared.notOfType(DoNothing::class.java)
+                    shared.notOfType(Initialize::class.java)
                 )
             }
         }
@@ -42,7 +39,7 @@ class HomeViewModel(
             .compose(initializeFilter)
             .map { mapToAction(it) }
             .compose(processor.process())
-            .scan(HomeViewState.idle, reducer.reduce())
+            .scan(HomeViewState.loading, reducer.reduce())
             .distinctUntilChanged()
             .replay(1)
             .autoConnect(0)
@@ -50,8 +47,8 @@ class HomeViewModel(
 
     private fun mapToAction(intent: HomeIntent): HomeAction {
         return when (intent) {
-            is Initialize -> LoadHomeData
-            is DoNothing -> LoadHomeData
+            is Initialize -> HomeAction.LoadData
+            is LoadData -> HomeAction.LoadData
         }
     }
 }
