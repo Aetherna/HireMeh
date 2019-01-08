@@ -6,6 +6,7 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dagger.android.support.AndroidSupportInjectionModule
+import dev.aetherna.hiremeh.common.api.ApiModule
 import javax.inject.Singleton
 
 @Singleton

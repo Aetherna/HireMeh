@@ -6,7 +6,7 @@ import dev.aetherna.hiremeh.common.mvi.MviViewState
 data class HomeViewState(
     val isLoading: Boolean = false,
     val posts: List<Post> = emptyList(),
-    val error: String = ""
+    val error: String? = null
 ) : MviViewState {
 
     companion object {

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="textSizeHeader">20sp</dimen>
     <dimen name="textSizeBody">16sp</dimen>
+    <dimen name="textSizeAuthor">12sp</dimen>
 </resources>

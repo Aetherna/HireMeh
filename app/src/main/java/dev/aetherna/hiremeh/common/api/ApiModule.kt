@@ -1,10 +1,7 @@
-package dev.aetherna.hiremeh.common.dagger
+package dev.aetherna.hiremeh.common.api
 
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import dev.aetherna.hiremeh.common.api.Api
-import dev.aetherna.hiremeh.common.api.DelegatePostApi
 import dev.aetherna.hiremeh.common.api.domain.PostResponse
 import dev.aetherna.hiremeh.common.api.retrofit.PostApi
 import dev.aetherna.hiremeh.common.api.retrofit.parser.PostParser
@@ -12,9 +9,6 @@ import dev.aetherna.hiremeh.common.api.retrofit.parser.ResponseParser
 import dev.aetherna.hiremeh.common.api.retrofit.parser.error.ApiErrorParser
 import dev.aetherna.hiremeh.common.api.retrofit.parser.error.ErrorParser
 import dev.aetherna.hiremeh.common.domain.Post
-import dev.aetherna.hiremeh.common.repository.DataSource
-import dev.aetherna.hiremeh.common.repository.remote.RemotePostSource
-import io.reactivex.Scheduler
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

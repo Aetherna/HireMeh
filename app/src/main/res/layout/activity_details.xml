@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewModel" type="dev.aetherna.hiremeh.details.view.DetailsViewState"/>
+        <import type="android.view.View"/>
+    </data>
+
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".details.DetailsActivity"
+            android:padding="12dp">
+
+        <TextView android:id="@+id/details_userName"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@{viewModel.userName}"
+                  tools:text="@tools:sample/full_names"
+                  style="@style/PostAuthorStyle"
+        />
+
+        <TextView android:id="@+id/details_title"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@{viewModel.title}"
+                  tools:text="@tools:sample/lorem"
+                  style="@style/PostTitleStyle"
+        />
+        <TextView android:id="@+id/details_body"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@{viewModel.body}"
+                  tools:text="@tools:sample/lorem"
+                  android:layout_marginTop="20dp"
+                  style="@style/PostBodyStyle"
+        />
+
+        <TextView android:id="@+id/details_comments"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  style="@style/PostButtonStyle"
+                  android:layout_marginTop="20dp"
+                  android:text="@{@string/comments_number(viewModel.commentsNo)}"
+                  tools:text="Comments: 13"
+        />
+    </LinearLayout>
+</layout>

@@ -3,6 +3,7 @@ package dev.aetherna.hiremeh.common.dagger
 import dagger.Module
 import dagger.Provides
 import dev.aetherna.hiremeh.common.api.Api
+import dev.aetherna.hiremeh.common.api.ApiModule
 import dev.aetherna.hiremeh.common.repository.DataSource
 import dev.aetherna.hiremeh.common.repository.PostRepository
 import dev.aetherna.hiremeh.common.repository.Repository

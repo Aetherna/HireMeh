@@ -3,17 +3,23 @@ package dev.aetherna.hiremeh.common.dagger
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import dev.aetherna.hiremeh.common.dagger.screens.HomeActivityModule
-import dev.aetherna.hiremeh.home.view.HomeActivity
+import dev.aetherna.hiremeh.details.DetailsActivity
+import dev.aetherna.hiremeh.details.DetailsModule
+import dev.aetherna.hiremeh.home.HomeModule
+import dev.aetherna.hiremeh.home.HomeActivity
 
 @Module(
     includes = [
-        HomeActivityModule::class
+        HomeModule::class,
+        DetailsModule::class
     ]
 )
 interface ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = [HomeActivityModule::class])
+    @ContributesAndroidInjector(modules = [HomeModule::class])
     fun bindHomeActivity(): HomeActivity
+
+    @ContributesAndroidInjector(modules = [DetailsModule::class])
+    fun bindDetailsActivity(): DetailsActivity
 
 }

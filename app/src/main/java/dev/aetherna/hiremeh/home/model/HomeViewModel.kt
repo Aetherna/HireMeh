@@ -1,4 +1,4 @@
-package dev.aetherna.hiremeh.home
+package dev.aetherna.hiremeh.home.model
 
 import android.arch.lifecycle.ViewModel
 import dev.aetherna.hiremeh.common.mvi.MviProcessor

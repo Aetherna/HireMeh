@@ -1,4 +1,4 @@
-package dev.aetherna.hiremeh.common.dagger.screens
+package dev.aetherna.hiremeh.home
 
 import android.arch.lifecycle.ViewModel
 import dagger.Module
@@ -8,9 +8,8 @@ import dev.aetherna.hiremeh.common.dagger.AppModule
 import dev.aetherna.hiremeh.common.dagger.ViewModelKey
 import dev.aetherna.hiremeh.common.mvi.MviProcessor
 import dev.aetherna.hiremeh.common.mvi.MviReducer
-import dev.aetherna.hiremeh.common.repository.PostRepository
 import dev.aetherna.hiremeh.common.repository.Repository
-import dev.aetherna.hiremeh.home.*
+import dev.aetherna.hiremeh.home.model.*
 import dev.aetherna.hiremeh.home.view.HomeViewState
 import io.reactivex.Scheduler
 import javax.inject.Named
@@ -18,11 +17,11 @@ import javax.inject.Singleton
 
 @Module(
     includes = [
-        HomeActivityModule.ProvideViewModel::class,
+        HomeModule.ProvideViewModel::class,
         AppModule::class
     ]
 )
-class HomeActivityModule {
+class HomeModule {
 
     @Provides
     @Singleton

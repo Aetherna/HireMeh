@@ -3,4 +3,9 @@
     <color name="colorPrimary">#178ab6</color>
     <color name="colorPrimaryDark">#0455b0</color>
     <color name="colorAccent">#dad84f</color>
+
+    <color name="colorTextHeader">@color/colorPrimaryDark</color>
+    <color name="colorTextBody">#000</color>
+    <color name="colorTextAuthor">#b2b2b2</color>
+    <color name="colorTextButton">#fff</color>
 </resources>

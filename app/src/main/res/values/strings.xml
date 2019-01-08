@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HireMeh</string>
+    <string name="comments_number">Comments: %s</string>
 </resources>

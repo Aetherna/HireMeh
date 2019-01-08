@@ -12,6 +12,6 @@ import android.widget.Toast
 fun Activity.shortToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 fun Fragment.shortToast(message: String) = Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-fun ViewGroup.inflate(@LayoutRes layout: Int): View {
-    return LayoutInflater.from(context).inflate(layout, this, false)
+fun Activity.startActivity(){
+
 }

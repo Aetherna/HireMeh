@@ -1,4 +1,4 @@
-package dev.aetherna.hiremeh.home
+package dev.aetherna.hiremeh.home.model
 
 import dev.aetherna.hiremeh.common.domain.Post
 import dev.aetherna.hiremeh.common.mvi.MviResult

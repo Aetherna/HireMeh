@@ -1,4 +1,4 @@
-package dev.aetherna.hiremeh.home
+package dev.aetherna.hiremeh.home.model
 
 import dev.aetherna.hiremeh.common.mvi.MviProcessor
 import dev.aetherna.hiremeh.common.repository.Repository
@@ -22,9 +22,7 @@ class HomeProcessor(
 
     private fun loadPosts(): Observable<HomeResult> = postRepository.getAllPosts()
         .subscribeOn(bgScheduler)
-        .map { it ->
-            HomeResult.DataLoaded(it)
-        }
+        .map { it -> HomeResult.DataLoaded(it) }
         .observeOn(uiScheduler)
         .cast(HomeResult::class.java)
         .onErrorReturn { HomeResult.DataLoadingError(it.message.orEmpty()) }
