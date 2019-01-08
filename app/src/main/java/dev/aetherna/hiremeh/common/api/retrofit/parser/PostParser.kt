@@ -6,6 +6,7 @@ import dev.aetherna.hiremeh.common.domain.Post
 class PostParser : ResponseParser<PostResponse, Post> {
     override fun parse(response: PostResponse) = Post(
         id = response.id,
+        userId = response.userId,
         title = response.title.orEmpty(),
         body = response.body.orEmpty()
     )

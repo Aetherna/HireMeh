@@ -51,5 +51,4 @@ class AppModule {
     ): Repository {
         return PostRepository(remoteDataSource)
     }
-
 }

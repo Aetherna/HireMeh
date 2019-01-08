@@ -6,7 +6,14 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import dev.aetherna.hiremeh.common.dagger.AppModule
 import dev.aetherna.hiremeh.common.dagger.ViewModelKey
-import dev.aetherna.hiremeh.details.model.DetailsViewModel
+import dev.aetherna.hiremeh.common.mvi.MviProcessor
+import dev.aetherna.hiremeh.common.mvi.MviReducer
+import dev.aetherna.hiremeh.common.repository.Repository
+import dev.aetherna.hiremeh.details.model.*
+import dev.aetherna.hiremeh.details.view.DetailsViewState
+import io.reactivex.Scheduler
+import javax.inject.Named
+import javax.inject.Singleton
 
 @Module(
     includes = [
@@ -17,6 +24,22 @@ import dev.aetherna.hiremeh.details.model.DetailsViewModel
 
 class DetailsModule {
 
+    @Provides
+    @Singleton
+    fun provideDetailsReducer(): MviReducer<DetailsViewState, DetailsResult> {
+        return DetailsReducer()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDetailsProcessor(
+        postRepository: Repository,
+        @Named("bgScheduler") bgScheduler: Scheduler,
+        @Named("uiScheduler") uiScheduler: Scheduler
+    ): MviProcessor<DetailsAction, DetailsResult> {
+        return DetailsProcessor(postRepository, bgScheduler, uiScheduler)
+    }
+
     @Module
     class ProvideViewModel {
 
@@ -24,9 +47,9 @@ class DetailsModule {
         @Provides
         @IntoMap
         @ViewModelKey(DetailsViewModel::class)
-        fun provideHomeViewModel(
-//            reducer: MviReducer<HomeViewState, HomeResult>,
-//            processor: MviProcessor<HomeAction, HomeResult>
-        ): ViewModel = DetailsViewModel()
+        fun provideDetailsViewModel(
+            processor: MviProcessor<DetailsAction, DetailsResult>,
+            reducer: MviReducer<DetailsViewState, DetailsResult>
+        ): ViewModel = DetailsViewModel(processor, reducer)
     }
 }

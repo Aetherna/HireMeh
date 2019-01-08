@@ -62,7 +62,6 @@ class HomeActivity : DaggerAppCompatActivity(), MviView<HomeIntent, HomeViewStat
     }
 
     override fun render(state: HomeViewState) {
-        binding.viewModel = state
         postsAdapter.submitList(state.posts)
         binding.homeRefresh.isRefreshing = state.isLoading
 
