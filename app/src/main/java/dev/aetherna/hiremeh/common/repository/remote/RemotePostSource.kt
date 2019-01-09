@@ -41,7 +41,7 @@ class RemotePostSource(
                     comments.size
                 )
             }
-        ).doOnError { Log.e("WHA", it.message) }
+        )
     }
 
     private fun getPostById(postId: String): Observable<Post> = allPostRequest.map { it.find { it.id == postId } }

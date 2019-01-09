@@ -30,9 +30,9 @@ class HomeActivityTest {
 
         postRepository.allPostsSubject.onNext(
             listOf(
-                emptyPost.copy(title = "title1"),
-                emptyPost.copy(title = "title2"),
-                emptyPost.copy(title = "title3")
+                Post.EMPTY.copy(title = "title1", body = "body!"),
+                Post.EMPTY.copy(title = "title2"),
+                Post.EMPTY.copy(title = "title3")
             )
         )
 
@@ -43,6 +43,7 @@ class HomeActivityTest {
                 childAt<HomeScreen.PostItem>(0) {
                     isVisible()
                     title { hasText("title1") }
+                    body { hasText("body!") }
                 }
                 childAt<HomeScreen.PostItem>(1) {
                     isVisible()
@@ -54,7 +55,6 @@ class HomeActivityTest {
                 }
             }
         }
-
     }
 
     @Test
@@ -63,16 +63,14 @@ class HomeActivityTest {
         postRepository.allPostsSubject.onError(IllegalStateException("Oh My!"))
 
         screen {
-            KView {//toast
+            KView {
+                //toast
                 withText("Oh My!")
             } perform {
                 inRoot { isPlatformPopup() }
             }
         }
     }
-
-    private val emptyPost = Post("", "", "", "")
-
 }
 
 open class HomeScreen : Screen<HomeScreen>() {
@@ -88,5 +86,4 @@ open class HomeScreen : Screen<HomeScreen>() {
         val title: KTextView = KTextView(parent) { withId(R.id.item_post_title) }
         val body: KTextView = KTextView(parent) { withId(R.id.item_post_body) }
     }
-
 }
