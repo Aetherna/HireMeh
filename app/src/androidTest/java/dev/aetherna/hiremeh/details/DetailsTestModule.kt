@@ -8,21 +8,19 @@ import dev.aetherna.hiremeh.common.dagger.AppModule
 import dev.aetherna.hiremeh.common.dagger.ViewModelKey
 import dev.aetherna.hiremeh.common.mvi.MviProcessor
 import dev.aetherna.hiremeh.common.mvi.MviReducer
-import dev.aetherna.hiremeh.common.repository.Repository
 import dev.aetherna.hiremeh.details.model.*
 import dev.aetherna.hiremeh.details.view.DetailsViewState
-import io.reactivex.Scheduler
-import javax.inject.Named
+import dev.aetherna.hiremeh.test.TestPostRepository
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Module(
     includes = [
-        DetailsModule.ProvideViewModel::class,
+        DetailsTestModule.ProvideViewModel::class,
         AppModule::class
     ]
 )
-
-class DetailsModule {
+class DetailsTestModule {
 
     @Provides
     @Singleton
@@ -32,12 +30,8 @@ class DetailsModule {
 
     @Provides
     @Singleton
-    fun provideDetailsProcessor(
-        postRepository: Repository,
-        @Named("bgScheduler") bgScheduler: Scheduler,
-        @Named("uiScheduler") uiScheduler: Scheduler
-    ): MviProcessor<DetailsAction, DetailsResult> {
-        return DetailsProcessor(postRepository, bgScheduler, uiScheduler)
+    fun provideDetailsProcessor(): MviProcessor<DetailsAction, DetailsResult> {
+        return DetailsProcessor(TestPostRepository.Instance, Schedulers.trampoline(), Schedulers.trampoline())
     }
 
     @Module

@@ -10,8 +10,8 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 class DetailsViewModel(
-    private val processor: MviProcessor<DetailsAction, DetailsResult>,
-    private val reducer: MviReducer<DetailsViewState, DetailsResult>
+    private val reducer: MviReducer<DetailsViewState, DetailsResult>,
+    private val processor: MviProcessor<DetailsAction, DetailsResult>
 ) : MviViewModel<DetailsIntent, DetailsViewState>, ViewModel() {
 
     private val intentsSubject = PublishSubject.create<DetailsIntent>()

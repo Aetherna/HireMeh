@@ -3,7 +3,6 @@ package dev.aetherna.hiremeh.common.repository
 import dev.aetherna.hiremeh.common.domain.Post
 import dev.aetherna.hiremeh.home.view.PostDetails
 import io.reactivex.Observable
-import io.reactivex.Single
 
 class PostRepository(
     private val remotePostsSource: DataSource

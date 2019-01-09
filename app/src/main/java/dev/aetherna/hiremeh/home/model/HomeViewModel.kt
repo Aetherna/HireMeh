@@ -10,7 +10,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.PublishSubject
 
-class HomeViewModel(
+open class HomeViewModel(
     private val reducer: MviReducer<HomeViewState, HomeResult>,
     private val processor: MviProcessor<HomeAction, HomeResult>
 ) : ViewModel(), MviViewModel<HomeIntent, HomeViewState> {
