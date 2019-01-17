@@ -1,7 +1,8 @@
 package dev.aetherna.hiremeh.common.repository
 
+import dev.aetherna.hiremeh.common.domain.Comment
 import dev.aetherna.hiremeh.common.domain.Post
-import dev.aetherna.hiremeh.home.view.PostDetails
+import dev.aetherna.hiremeh.common.domain.User
 import io.reactivex.Observable
 
 class PostRepository(
@@ -12,7 +13,11 @@ class PostRepository(
         return remotePostsSource.getAllPosts()
     }
 
-    override fun getPostDetails(postId: String): Observable<PostDetails> {
-        return remotePostsSource.getPostDetail(postId)
+    override fun getAllUsers(): Observable<List<User>> {
+        return remotePostsSource.getAllUsers()
+    }
+
+    override fun getAllComments(): Observable<List<Comment>> {
+        return remotePostsSource.getAllComments()
     }
 }

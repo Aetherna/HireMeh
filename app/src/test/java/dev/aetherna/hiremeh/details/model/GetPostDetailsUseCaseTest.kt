@@ -1,14 +1,14 @@
-package dev.aetherna.hiremeh.common.repository.remote
+package dev.aetherna.hiremeh.details.model
 
 import com.nhaarman.mockitokotlin2.mock
-import dev.aetherna.hiremeh.common.api.Api
 import dev.aetherna.hiremeh.common.domain.Comment
 import dev.aetherna.hiremeh.common.domain.Post
 import dev.aetherna.hiremeh.common.domain.User
+import dev.aetherna.hiremeh.common.repository.Repository
 import io.reactivex.Observable
 import org.junit.Test
 
-class RemotePostSourceTest {
+class GetPostDetailsUseCaseTest {
 
     private val testPosts = listOf(
         Post.EMPTY.copy(id = "post1", userId = "user1", title = "title1", body = "body1"),
@@ -28,18 +28,18 @@ class RemotePostSourceTest {
         Comment("comment4", "post1")
     )
 
-    private val api: Api = mock {
-        on { getPosts() }.thenReturn(Observable.just(testPosts))
-        on { getUsers() }.thenReturn(Observable.just(testUsers))
-        on { getComments() }.thenReturn(Observable.just(testComments))
+    private val repository: Repository = mock {
+        on { getAllPosts() }.thenReturn(Observable.just(testPosts))
+        on { getAllUsers() }.thenReturn(Observable.just(testUsers))
+        on { getAllComments() }.thenReturn(Observable.just(testComments))
     }
 
-    val postSource = RemotePostSource(api)
+    private val useCase = GetPostDetailsUseCase(repository)
 
     @Test
     fun `Having all data present When get post details Then returns data successfully`() {
 
-        postSource.getPostDetail("post1")
+        useCase.getPostDetails("post1")
             .test()
             .assertNoErrors()
             .assertValue {
@@ -54,7 +54,7 @@ class RemotePostSourceTest {
     @Test
     fun `Having no post data present When get post details Then passes the error further down the stream`() {
 
-        postSource.getPostDetail("nopost")
+        useCase.getPostDetails("nopost")
             .test()
             .assertError { it is NullPointerException }
     }
@@ -62,7 +62,7 @@ class RemotePostSourceTest {
     @Test
     fun `Having no user for post present When get post details Then passes the error further down the stream`() {
 
-        postSource.getPostDetail("post3")
+        useCase.getPostDetails("post3")
             .test()
             .assertError { it is NullPointerException }
     }

@@ -32,12 +32,18 @@ class DetailsModule {
 
     @Provides
     @Singleton
+    fun provideGetDetailsUseCase(postRepository: Repository): PostDetailsUseCase {
+        return GetPostDetailsUseCase(postRepository)
+    }
+
+    @Provides
+    @Singleton
     fun provideDetailsProcessor(
-        postRepository: Repository,
+        postDetailsUseCase: PostDetailsUseCase,
         @Named("bgScheduler") bgScheduler: Scheduler,
         @Named("uiScheduler") uiScheduler: Scheduler
     ): MviProcessor<DetailsAction, DetailsResult> {
-        return DetailsProcessor(postRepository, bgScheduler, uiScheduler)
+        return DetailsProcessor(postDetailsUseCase, bgScheduler, uiScheduler)
     }
 
     @Module

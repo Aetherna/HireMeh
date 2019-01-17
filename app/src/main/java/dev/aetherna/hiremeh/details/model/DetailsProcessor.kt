@@ -1,13 +1,12 @@
 package dev.aetherna.hiremeh.details.model
 
 import dev.aetherna.hiremeh.common.mvi.MviProcessor
-import dev.aetherna.hiremeh.common.repository.Repository
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Scheduler
 
 class DetailsProcessor(
-    private val postRepository: Repository,
+    private val postDetailsUseCase: PostDetailsUseCase,
     private val bgScheduler: Scheduler,
     private val uiScheduler: Scheduler
 ) : MviProcessor<DetailsAction, DetailsResult> {
@@ -23,7 +22,7 @@ class DetailsProcessor(
     private fun loadPost(postId: String): Observable<DetailsResult> {
         return Observable.just(postId)
             .subscribeOn(bgScheduler)
-            .flatMap { postRepository.getPostDetails(postId) }
+            .flatMap { postDetailsUseCase.getPostDetails(postId) }
             .map { DetailsResult.Success(it) }
             .cast(DetailsResult::class.java)
             .onErrorReturn { DetailsResult.Error(it.message.orEmpty()) }
